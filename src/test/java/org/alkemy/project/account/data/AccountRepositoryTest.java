@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +25,8 @@ public class AccountRepositoryTest {
         accountRepository.clear();
 
         // Preload the repository with some accounts
-        var account1 = new Account(1L, "Test Account 1", List.of(providesMarket(1L)));
-        var account2 = new Account(2L, "Test Account 2", List.of(providesMarket(2L)));
+        var account1 = new Account(1L, "Test Account 1", List.of(providesMarket(1L)), BigDecimal.TEN);
+        var account2 = new Account(2L, "Test Account 2", List.of(providesMarket(2L)), BigDecimal.TWO);
         accountRepository.save(account1);
         accountRepository.save(account2);
     }
@@ -34,10 +35,10 @@ public class AccountRepositoryTest {
     @DisplayName("Save account successfully and verify it exists")
     public void testSaveAccount() {
         // Given
-        Account account = new Account(3L, "Test Account 3", List.of(providesMarket(3L)));
+        var account = new Account(3L, "Test Account 3", List.of(providesMarket(3L)), BigDecimal.ZERO);
 
         // When
-        Account savedAccount = accountRepository.save(account);
+        var savedAccount = accountRepository.save(account);
 
         // Then
         assertNotNull(savedAccount);
@@ -93,10 +94,10 @@ public class AccountRepositoryTest {
     @DisplayName("WHEN checking existence of an account THEN return true if exists")
     public void testExists() {
         // Given
-        Account account = new Account(1L, "Test Account 1", List.of(providesMarket(1L)));
+        var account = new Account(1L, "Test Account 1", List.of(providesMarket(1L)), BigDecimal.ZERO);
 
         // When
-        boolean exists = accountRepository.exists(account);
+        var exists = accountRepository.exists(account);
 
         // Then
         assertTrue(exists);
@@ -112,6 +113,16 @@ public class AccountRepositoryTest {
         // Then
         assertTrue(foundAccount.isPresent());
         assertEquals(Long.valueOf(2L), foundAccount.get().getId());
+    }
+
+    @Test
+    @DisplayName("WHEN calling getTotalBalance THEN it should return the correct one")
+    public void testBalance() {
+        // When
+        var balance = accountRepository.getTotalBalance();
+
+        // Then
+        assertEquals(balance, BigDecimal.valueOf(12));
     }
 
 }

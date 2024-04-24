@@ -9,6 +9,7 @@ import org.alkemy.project.account.domain.Market;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -49,7 +50,7 @@ public class DatabaseLoader implements CommandLineRunner {
         var markets = List.of(marketAR1, marketAR2, marketUY1);
         for (int i = 1; i <= 100; i++) {
             var chosenMarket = markets.get(rand.nextInt(markets.size()));
-            var account = new Account(IdGenerator.generateId(), "Demo Account " + i, List.of(chosenMarket));
+            var account = new Account(IdGenerator.generateId(), "Demo Account " + i, List.of(chosenMarket), BigDecimal.ZERO);
             chosenMarket.getAccounts().add(account);
             entityManager.persist(account);
         }

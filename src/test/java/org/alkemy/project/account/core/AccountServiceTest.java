@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,7 +28,7 @@ public class AccountServiceTest {
 
     @Test
     public void createAccountSuccessfully() {
-        Account account = new Account(1L, "description", null);
+        Account account = new Account(1L, "description", null, BigDecimal.ZERO);
         when(accountRepository.save(account)).thenReturn(account);
 
         Account result = accountService.create(account);
@@ -38,7 +39,7 @@ public class AccountServiceTest {
 
     @Test
     public void updateAccountSuccessfully() {
-        Account account = new Account(1L, "description", null);
+        Account account = new Account(1L, "description", null, BigDecimal.ZERO);
         when(accountRepository.save(account)).thenReturn(account);
 
         Account result = accountService.update(account);
@@ -60,7 +61,7 @@ public class AccountServiceTest {
     @Test
     public void getAccountSuccessfully() {
         Long id = 1L;
-        Account account = new Account(1L, "description", null);
+        Account account = new Account(1L, "description", null, BigDecimal.ZERO);
         when(accountRepository.findById(id)).thenReturn(Optional.of(account));
 
         Optional<Account> result = accountService.get(id);

@@ -3,10 +3,8 @@ package org.alkemy.project.account.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -15,13 +13,15 @@ public class Account {
     private Long id;
     private String description;
 
+    private BigDecimal balance;
+
     @ManyToMany(mappedBy = "accounts")
     private List<Market> markets;
 
     public Account() {
     }
 
-    public Account(Long id, String description, List<Market> markets) {
+    public Account(Long id, String description, List<Market> markets, BigDecimal balance) {
         this.id = id;
         this.description = description;
         this.markets = markets;
@@ -49,5 +49,13 @@ public class Account {
 
     public void setMarkets(List<Market> markets) {
         this.markets = markets;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal funds) {
+        this.balance = funds;
     }
 }

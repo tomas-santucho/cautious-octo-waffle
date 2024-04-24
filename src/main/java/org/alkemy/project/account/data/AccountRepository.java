@@ -4,6 +4,7 @@ import org.alkemy.project.AlkemyRepository;
 import org.alkemy.project.account.domain.Account;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,5 +56,10 @@ public class AccountRepository implements AlkemyRepository<Account> {
     public Optional<Account> findByDescription(final String description) {
         //TODO add method
         return Optional.empty();
+    }
+
+    public BigDecimal getTotalBalance() {
+        //TODO add method
+        return BigDecimal.ZERO;
     }
 }
