@@ -2,7 +2,6 @@ package org.alkemy.project.account.core;
 
 import org.alkemy.project.account.data.AccountRepository;
 import org.alkemy.project.account.domain.Account;
-import org.alkemy.project.account.core.AccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
