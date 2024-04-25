@@ -1,9 +1,7 @@
 package org.alkemy.project.account.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.alkemy.project.transaction.domain.Transaction;
 
 import java.util.List;
 
@@ -25,15 +23,19 @@ public class Market {
     private List<Account> accounts;
 
 
+    @OneToMany(mappedBy = "market") // Add for transactions
+    private List<Transaction> transactions;
+
     public Market() {
     }
 
-    public Market(Long id, String code, String description, Country country, List<Account> accounts) {
+    public Market(Long id, String code, String description, Country country, List<Account> accounts, List<Transaction> transactions) {
         this.id = id;
         this.code = code;
         this.description = description;
         this.country = country;
         this.accounts = accounts;
+        this.transactions = transactions;
     }
 
     public Long getId() {
@@ -74,5 +76,13 @@ public class Market {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

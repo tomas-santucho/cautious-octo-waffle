@@ -3,9 +3,8 @@ package org.alkemy.project.account.domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.OneToMany;
+import org.alkemy.project.transaction.domain.Transaction;
 
 import java.util.List;
 
@@ -18,13 +17,18 @@ public class Account {
     @ManyToMany(mappedBy = "accounts")
     private List<Market> markets;
 
+
+    @OneToMany(mappedBy = "account") // Establish one-to-many relationship
+    private List<Transaction> transactions;
+
     public Account() {
     }
 
-    public Account(Long id, String description, List<Market> markets) {
+    public Account(Long id, String description, List<Market> markets, List<Transaction> transactions) {
         this.id = id;
         this.description = description;
         this.markets = markets;
+        this.transactions = transactions;
     }
 
     public Long getId() {
@@ -49,5 +53,13 @@ public class Account {
 
     public void setMarkets(List<Market> markets) {
         this.markets = markets;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 }

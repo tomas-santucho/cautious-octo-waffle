@@ -2,6 +2,7 @@ package org.alkemy.project.account.core;
 
 import org.alkemy.project.account.data.AccountRepository;
 import org.alkemy.project.account.domain.Account;
+import org.alkemy.project.account.rest.dto.AccountDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -32,7 +33,8 @@ public class AccountService {
         return accountRepository.findById(id);
     }
 
-    public List<Account> getAll() {
-        return accountRepository.findAll();
+    public List<AccountDto> getAll() {
+        return accountRepository.findAll().stream().map(account ->
+                new AccountDto(account.getId(), account.getDescription())).toList();
     }
 }
